@@ -59,7 +59,7 @@ export default {
         <br />
         <button type="submit" class="btn btn-primary mb-3">Login</button>
         <br>
-        <a href="https://discord.com/api/oauth2/authorize?client_id=1072549066103333004&redirect_uri=http%3A%2F%2Flocalhost%3A2600%2Flogin&response_type=code&scope=identify%20email" class="btn btn-primary">Login with Discord</a>
+        <a href="https://discord.com/api/oauth2/authorize?client_id=1072549066103333004&redirect_uri=https%3A%2F%2Fapsekill.web.app%2Flogin&response_type=code&scope=identify%20email" class="btn btn-primary">Login with Discord</a>
       </form>
     </div>
   </div>
