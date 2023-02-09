@@ -13,7 +13,7 @@ export default {
     <h3 class="text-1">The best place to improve your skill</h3>
     <h4 class="text-2">
       See valorant agents stats and skills. 
-      Watch specific agent's pro playerand content creator videos
+      Watch specific agent's pro player and content creator videos
     </h4>
     <h1 class="text-brand">
       <!-- <span class="material-symbols-outlined" style="height: 50px;">arrow_upward</span> -->
