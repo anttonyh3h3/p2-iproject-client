@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import url from "url"
 
-const baseUrl = "http://localhost:2500";
+const baseUrl = "https://upskill-production.up.railway.app";
 
 export const useDataStore = defineStore("data", {
   state: () => ({
