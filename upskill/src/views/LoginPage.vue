@@ -38,7 +38,7 @@ export default {
         <h2 style="margin-bottom: 25px">Login</h2>
         <div class="form-floating mb-3">
           <input
-            type="email"
+            type="text"
             class="form-control"
             id="floatingInput"
             placeholder="name@example.com"

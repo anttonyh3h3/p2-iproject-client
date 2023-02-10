@@ -5,14 +5,16 @@ import { useDataStore } from '../stores';
 
 export default {
   name: "Navbar",
+
   methods: {
     ...mapActions(useDataStore, ["handleLogout"]),
     logoutClick() {
       this.handleLogout()
     }
   },
+
   computed: {
-    ...mapState(useDataStore, ["isLogin"])
+    ...mapState(useDataStore, ["isLogin", "username"])
   }
 };
 </script>
@@ -58,7 +60,7 @@ export default {
             </li>
             <li class="nav-item dropdown" v-if="isLogin">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Username
+                {{ username }}
               </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">My Coaching</a></li>
