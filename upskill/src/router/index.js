@@ -5,6 +5,7 @@ import RegisterPage from "../views/Register.vue";
 import AgentList from "../views/AgentList.vue";
 import AgentDetail from "../views/AgentDetail.vue";
 import ProList from "../views/Pros.vue";
+import HirePage from "../views/HireCoach.vue"
 import DiscordLogin from "../views/DiscordLogin.vue";
 
 const router = createRouter({
@@ -44,6 +45,11 @@ const router = createRouter({
       path: "/pros",
       name: "pros",
       component: ProList,
+    },
+    {
+      path: "/pros/hire/:uuid",
+      name: "hire-pros",
+      component: HirePage,
     },
   ],
 });

@@ -105,6 +105,7 @@ export const useDataStore = defineStore("data", {
         localStorage.access_token = data.access_token;
         localStorage.username = data.username;
         localStorage.status = data.status;
+        localStorage.email = data.email;
         this.getUsername()
         this.isLogin = true;
 
@@ -170,5 +171,27 @@ export const useDataStore = defineStore("data", {
         console.log(err);
       }
     },
+
+    async hireCoach(value) {
+      try {
+        const { data } = await axios({
+          url: baseUrl + `/coaching/${value.uuid}`,
+          method: "POST",
+          headers: {
+            access_token: localStorage.access_token
+          },
+          data: {
+            email: localStorage.email,
+            date: value.date,
+            link: value.link
+          }
+        })
+
+        console.log(data);
+        this.router.push("/pros");
+      } catch (err) {
+        console.log(err);
+      }
+    }
   },
 });

@@ -1,7 +1,14 @@
 <script>
+import { RouterLink } from 'vue-router';
+
 export default {
   name: "ProsCard",
-  props: ["proDetail"]
+  props: ["proDetail"],
+  data() {
+    return {
+      link: `/pros/hire/${this.proDetail.uuid}`
+    }
+  },
 };
 </script>
 
@@ -18,7 +25,7 @@ export default {
             <p class="card-text">
               <a :href="proDetail.content" target="_blank" style="text-decoration: none; color: #D14836;"><u>Watch Gameplay >></u></a>
             </p>
-            <a class="cta" href="#">
+            <RouterLink class="cta" :to="link">
               <span>HIRE COACH</span>
               <span>
                 <svg width="44px" height="23px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -29,7 +36,7 @@ export default {
                   </g>
                 </svg>
               </span> 
-            </a>
+            </RouterLink>
           </div>
         </div>
       </div>
