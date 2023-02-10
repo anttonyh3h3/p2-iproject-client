@@ -1,7 +1,14 @@
 <script>
+import { RouterLink } from 'vue-router';
+
 export default {
   name: "AgentCard",
-  props: ["agentDetail"]
+  props: ["agentDetail"],
+  data() {
+    return {
+      link: `/agents/${this.agentDetail.uuid}`
+    }
+  },
 };
 </script>
 
@@ -13,7 +20,7 @@ export default {
       <div class="card-body" style="padding: 20px;">
         <h5 class="card-title">{{ agentDetail.name }}</h5>
         <p class="card-text text-truncate">{{ agentDetail.description }}</p>
-        <a class="cta" href="#">
+        <RouterLink class="cta" :to="link">
           <span>See Details</span>
           <span>
             <svg width="44px" height="23px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -24,7 +31,7 @@ export default {
               </g>
             </svg>
           </span> 
-        </a>
+        </RouterLink>
       </div>
     </div>
   </div>

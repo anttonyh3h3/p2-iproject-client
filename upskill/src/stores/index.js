@@ -1,23 +1,30 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
-import url from "url"
+import url from "url";
 
-const baseUrl = "https://upskill-production.up.railway.app";
+// const baseUrl = "https://upskill-production.up.railway.app";
+const baseUrl = "http://localhost:2500";
 
 export const useDataStore = defineStore("data", {
   state: () => ({
     pros: [],
     agents: [],
+    agentDetail: {},
     coachingData: [],
-    isLogin: false
+    username: "",
+    isLogin: false,
   }),
   getters: {},
   actions: {
+    getUsername() {
+      this.username = localStorage.username
+    },
+
     handleLogout() {
-      localStorage.clear()
-      this.isLogin = false
-      this.router.push("/")
+      localStorage.clear();
+      this.isLogin = false;
+      this.router.push("/");
     },
 
     async handleDiscordLogin(value) {
@@ -25,14 +32,15 @@ export const useDataStore = defineStore("data", {
         const { data } = await axios({
           url: baseUrl + `/users/oauth/discord/${value}`,
           method: "POST",
-        })
+        });
 
-        localStorage.access_token = data.access_token
-        localStorage.username = data.username
-        localStorage.status = data.status
-        this.isLogin = true
+        localStorage.access_token = data.access_token;
+        localStorage.username = data.username;
+        localStorage.status = data.status;
+        this.getUsername()
+        this.isLogin = true;
 
-        this.router.push("/")
+        this.router.push("/");
       } catch (err) {
         console.log(err);
       }
@@ -54,10 +62,10 @@ export const useDataStore = defineStore("data", {
 
         const dataLogin = {
           input: email,
-          password
-        }
+          password,
+        };
 
-        this.handleLogin(dataLogin)
+        this.handleLogin(dataLogin);
       } catch (err) {
         console.log(err);
       }
@@ -94,12 +102,14 @@ export const useDataStore = defineStore("data", {
           data: dataInput(),
         });
 
-        localStorage.access_token = data.access_token
-        localStorage.username = data.username
-        localStorage.status = data.status
-        this.isLogin = true
+        localStorage.access_token = data.access_token;
+        localStorage.username = data.username;
+        localStorage.status = data.status;
+        localStorage.email = data.email;
+        this.getUsername()
+        this.isLogin = true;
 
-        this.router.push("/")
+        this.router.push("/");
       } catch (err) {
         console.log(err);
       }
@@ -109,12 +119,27 @@ export const useDataStore = defineStore("data", {
       try {
         const { data } = await axios({
           url: baseUrl + "/external/val/agents",
-          method: "GET"
-        })
+          method: "GET",
+        });
 
-        this.agents = data
+        this.agents = data;
       } catch (error) {
         console.log(error);
+      }
+    },
+
+    async fetchAgentDetails(value) {
+      try {
+        const { data } = await axios({
+          url: baseUrl + `/external/val/agents/${value}`,
+          method: "GET",
+        });
+
+        console.log(data);
+
+        this.agentDetail = data;
+      } catch (err) {
+        console.log(err);
       }
     },
 
@@ -122,10 +147,10 @@ export const useDataStore = defineStore("data", {
       try {
         const { data } = await axios({
           url: baseUrl + "/pros",
-          method: "GET"
-        })
+          method: "GET",
+        });
 
-        this.pros = data
+        this.pros = data;
       } catch (err) {
         console.log(err);
       }
@@ -137,11 +162,33 @@ export const useDataStore = defineStore("data", {
           url: baseUrl + "/coaching",
           method: "GET",
           headers: {
-            "access_token": localStorage.access_token 
+            access_token: localStorage.access_token,
+          },
+        });
+
+        this.coachingData = data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async hireCoach(value) {
+      try {
+        const { data } = await axios({
+          url: baseUrl + `/coaching/${value.uuid}`,
+          method: "POST",
+          headers: {
+            access_token: localStorage.access_token
+          },
+          data: {
+            email: localStorage.email,
+            date: value.date,
+            link: value.link
           }
         })
 
-        this.coachingData = data
+        console.log(data);
+        this.router.push("/pros");
       } catch (err) {
         console.log(err);
       }
